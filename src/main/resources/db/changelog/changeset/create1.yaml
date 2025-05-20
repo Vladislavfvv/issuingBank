@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - preConditions:
+      - onFail: CONTINUE
+      - sqlCheck:
+          expectedResult: 0
+          sql: SELECT count(*) FROM information_schema.schemata WHERE schema_name = 'issuingbankschema'
+  - sql: CREATE SCHEMA IF NOT EXISTS issuingbankschema
