@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "user_access")
+@Table(name = "user_access", schema = "issuingbankschema")
 public class UserAccess { //Назначение: Хранит информацию о пользователях системы и их ролях.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

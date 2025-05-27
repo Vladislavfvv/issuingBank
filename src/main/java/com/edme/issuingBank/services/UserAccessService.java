@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-
 public class UserAccessService {
     private final UserAccessRepository userAccessRepository;
     private final UserAccessMapper userAccessMapper;
