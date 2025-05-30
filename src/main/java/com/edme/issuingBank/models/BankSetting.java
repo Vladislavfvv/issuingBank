@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "bank_setting", schema = "issuingbankschema")
+@Table(name = "bank_settings", schema = "issuingbankschema")
 public class BankSetting { //Назначение: Хранит параметры настройки банка и их текущее состояние.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

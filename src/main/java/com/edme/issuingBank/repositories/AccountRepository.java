@@ -1,11 +1,15 @@
 package com.edme.issuingBank.repositories;
 
 import com.edme.issuingBank.models.Account;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
@@ -38,6 +42,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     void insertDefaultValues();
 
 
+    Optional<Account> findByAccountNumber(@NotNull(message = "Account number is required") @Pattern(regexp = "^\\d{20}$", message = "Account number must be exactly 20 digits") String accountNumber);
 }
 
 

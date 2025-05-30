@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class AccountTypeDto {
     @Schema(description = "Unique account identifier", example = "123")
-    private int id;
+    private Long id;
 
     @NotNull(message = "accountTypeName is required")
     @Schema(description = "accountTypeName identifier", example = "Дебет")

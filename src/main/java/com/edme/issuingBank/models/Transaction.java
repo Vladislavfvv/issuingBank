@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Entity
-@Table(name="transaction", schema="issuingbankschema")
+@Table(name="transactions", schema="issuingbankschema")
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

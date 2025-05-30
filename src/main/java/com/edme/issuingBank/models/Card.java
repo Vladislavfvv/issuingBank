@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Entity
-@Table(name = "card", schema = "issuingbankschema")
+@Table(name = "cards", schema = "issuingbankschema")
 public class Card {//Назначение: Хранит сведения о выпущенных картах.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

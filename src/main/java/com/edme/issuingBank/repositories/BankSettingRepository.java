@@ -1,11 +1,15 @@
 package com.edme.issuingBank.repositories;
 
 import com.edme.issuingBank.models.BankSetting;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Repository
 public interface BankSettingRepository extends JpaRepository<BankSetting, Long> {
@@ -24,7 +28,7 @@ public interface BankSettingRepository extends JpaRepository<BankSetting, Long> 
                  "    current_value varchar(255)        not null," +
                  "    description   varchar(255)        not null" +
                  ")", nativeQuery = true )
-    void createTable(BankSetting bankSetting);
+    void createTable();
 
     @Modifying
     @Transactional
@@ -52,5 +56,8 @@ public interface BankSettingRepository extends JpaRepository<BankSetting, Long> 
                  "       ('www', 'www.123.com', 'Сайт')," +
                  "       ('registration_date', '________', 'Дата внесения в ЕГРЮЛ')", nativeQuery = true)
     void insertDefaultValues();
+
+
+    Optional<BankSetting> findBySetting(@NotBlank(message = "setting is required") @Size(max = 50, message = "setting must be at most 10 characters") String setting);
 }
 

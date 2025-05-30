@@ -5,11 +5,11 @@ databaseChangeLog:
       preConditions:
         - not:
             - tableExists:
-                tableName: "user_access"
+                tableName: "user_accesses"
                 schemaName: "issuingbankschema"
       changes:
         - createTable:
-            tableName: "user_access"
+            tableName: "user_accesses"
             schemaName: "issuingbankschema"
             columns:
               - column:

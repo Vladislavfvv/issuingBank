@@ -44,28 +44,28 @@ public class UserAccessService {
         } else {
             dto.setId(null);
             UserAccess saved = userAccessRepository.saveAndFlush(userAccessMapper.toEntity(dto));
-            log.info("User access successfully saved");
+            log.info("User access with id {} successfully saved", dto.getId());
             return Optional.ofNullable(userAccessMapper.toDto(saved));
         }
     }
 
     @Transactional
     public Optional<UserAccessDto> update(Long id, UserAccessDto dto) {
-        Optional<UserAccessDto> exiting = userAccessRepository.findById(id).map(userAccessMapper::toDto);
+        Optional<UserAccess> exiting = userAccessRepository.findById(id);
         if (exiting.isPresent()) {
-            UserAccessDto exitingDto = exiting.get();
+            UserAccess forSaving = exiting.get();
             // exiting.get().setId(dto.getId());
             // exitingDto.setId(dto.getId());
-            exitingDto.setUserLogin(dto.getUserLogin());
-            exitingDto.setUserPassword(dto.getUserPassword());
-            exitingDto.setFullName(dto.getFullName());
-            exitingDto.setUserRole(dto.getUserRole());
-            userAccessRepository.save(userAccessMapper.toEntity(exitingDto));
+            forSaving.setUserLogin(dto.getUserLogin());
+            forSaving.setUserPassword(dto.getUserPassword());
+            forSaving.setFullName(dto.getFullName());
+            forSaving.setUserRole(dto.getUserRole());
+            UserAccess updated = userAccessRepository.saveAndFlush(forSaving);
             // log.info("UserAccess with id: {} successfully updated", exitingDto.getId());
-            log.info("UserAccess with id: {} successfully updated", userAccessMapper.toEntity(exitingDto));
-            return Optional.of(exitingDto);
+            log.info("UserAccess with id: {} successfully updated", updated.getId());
+            return Optional.of(userAccessMapper.toDto(updated));
         } else {
-            log.info("User access not found with id: {}", id);
+            log.info("User access with id: {} not found ", id);
             return Optional.empty();
         }
     }
@@ -79,7 +79,7 @@ public class UserAccessService {
             log.info("UserAccess with id: {} successfully deleted", id);
             return true;
         } else {
-            log.info("User access already exists with id: {}", id);
+            log.info("UserAccess already exists with id: {}", id);
             return false;
         }
     }
@@ -88,10 +88,10 @@ public class UserAccessService {
     public boolean deleteAll() {
         try {
             userAccessRepository.deleteAll();
-            log.info("UserAccess deleted successfully");
+            log.info("UserAccesses deleted successfully");
             return true;
         } catch (Exception e) {
-            log.info("UserAccess could not be deleted");
+            log.info("UserAccesses could not be deleted");
             return false;
         }
     }
@@ -103,7 +103,7 @@ public class UserAccessService {
             log.info("UserAccess dropped successfully");
             return true;
         } catch (Exception e) {
-            log.info("UserAccess could not be dropped");
+            log.info("UserAccess table could not be dropped");
             return false;
         }
     }
@@ -112,7 +112,7 @@ public class UserAccessService {
     public boolean createTable() {
         try {
             userAccessRepository.createTable();
-            log.info("UserAccess created successfully");
+            log.info("UserAccess table created successfully");
             return true;
         } catch (Exception e) {
             log.error("Error creating Table UserAccess {}", e.getMessage());

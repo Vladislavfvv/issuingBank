@@ -1,11 +1,14 @@
 package com.edme.issuingBank.repositories;
 
 import com.edme.issuingBank.models.Client;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
@@ -38,5 +41,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
                  "        'Санкт Петербург, Лиговский  пр-т, 96 кв. 15', '+79121234568', 'petrov@list.ru')," +
                  "       ('Сидоров', 'Дмитрий', 'Степанович', '1976-10-20', '9012 345678 выдан 16.07.2018'," +
                  "        'Тюмень, ул. Республики, 21 кв.12', '+79041234569', 'dmsydorov@mail.ru')", nativeQuery = true)
-    int insertDefaultValue();
+    int insertDefaultValues();
+
+    Optional<Client> findByDocument(@Size(max = 255, message = "document must be at most 255 characters") String document);
 }

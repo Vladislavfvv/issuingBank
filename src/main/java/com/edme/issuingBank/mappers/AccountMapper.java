@@ -2,6 +2,7 @@ package com.edme.issuingBank.mappers;
 
 import com.edme.issuingBank.dto.AccountDto;
 import com.edme.issuingBank.models.Account;
+import com.edme.issuingBank.models.AccountType;
 import com.edme.issuingBank.models.Client;
 import com.edme.issuingBank.models.Currency;
 import org.mapstruct.Mapper;
@@ -12,7 +13,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring",//автоматическое создание бина т.к. есть spring и ручное как написано ниже не надо
         uses = {
         Currency.class,
-        AccountMapper.class,
+        AccountType.class,
         Client.class
 })
 public interface AccountMapper {
@@ -25,11 +26,11 @@ public interface AccountMapper {
 
 
     @Mapping(target = "currency", source = "currencyId", qualifiedByName = "mapCurrency")
-    @Mapping(target = "account", source = "accountId", qualifiedByName = "mapAccount")
+    @Mapping(target = "account", source = "accountTypeId", qualifiedByName = "mapAccountType")
     @Mapping(target = "client", source = "clientId", qualifiedByName = "mapClient")
     Account toEntity(AccountDto dto);
 
-    @Named("mapAccount")
+    @Named("mapCurrency")
     default Currency mapCurrency(Long id) {
         if (id == null) return null;
         Currency currency = new Currency();
@@ -37,15 +38,15 @@ public interface AccountMapper {
         return currency;
     }
 
-    @Named("mapAccount")
-    default Account mapAccount(Long id) {
+    @Named("mapAccountType")
+    default AccountType mapAccountType(Long id) {
         if (id == null) return null;
-        Account account = new Account();
-        account.setId(id);
-        return account;
+        AccountType accountType = new AccountType();
+        accountType.setId(id);
+        return accountType;
     }
 
-    @Named("mapAccount")
+    @Named("mapClient")
     default Client mapClient(Long id) {
         if (id == null) return null;
         Client client = new Client();

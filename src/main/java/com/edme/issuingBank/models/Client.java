@@ -13,7 +13,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "client", schema = "issuingbankschema")
+@Table(name = "clients", schema = "issuingbankschema")
 public class Client { //Назначение: Содержит основные данные о клиентах банка.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

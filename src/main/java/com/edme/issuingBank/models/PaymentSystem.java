@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "payment_system", schema = "issuingbankschema")
+@Table(name = "payment_systems", schema = "issuingbankschema")
 public class PaymentSystem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
