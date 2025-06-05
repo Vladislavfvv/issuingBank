@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-default-transaction-types
+      author: Vlad
+      changes:
+        - insert:
+            schemaName: issuingbankschema
+            tableName: transaction_type
+            columns:
+              - column: { name: transaction_type_name, value: Debit }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: transaction_type
+            columns:
+              - column: { name: transaction_type_name, value: Credit }

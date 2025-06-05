@@ -13,7 +13,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "accounts", schema = "issuingbankschema")
+@Table(name = "account", schema = "issuingbankschema")
 public class Account {//Назначение: Учитывает данные о счетах клиентов.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,9 +48,9 @@ public class Account {//Назначение: Учитывает данные о
     @Column(name = "suspending_operations", nullable = false)
     private boolean suspendingOperations;
 
-//    @Column(name = "account_clousing_date")
+//    @Column(name = "account_closing_date")
 //    private Date accountClosingDate;
-    @Column(name = "account_clousing_date")
+    @Column(name = "account_closing_date")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date accountClosingDate;

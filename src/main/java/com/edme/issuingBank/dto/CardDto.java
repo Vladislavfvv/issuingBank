@@ -37,19 +37,19 @@ public class CardDto {
 
     @NotNull(message = "Card status ID is required")
     @Schema(description = "Reference to the card status", example = "1")
-    private CardStatusDto cardStatusId;
+    private CardStatusDto cardStatus;
 
     @NotNull(message = "Payment system ID is required")
     @Schema(description = "Reference to the payment system", example = "2")
-    private PaymentSystemDto paymentSystemId;
+    private PaymentSystemDto paymentSystem;
 
     @NotNull(message = "Account ID is required")
     @Schema(description = "Reference to the account", example = "10")
-    private AccountDto accountId;
+    private AccountDto account;
 
     @NotNull(message = "Client ID is required")
     @Schema(description = "Reference to the client", example = "100")
-    private ClientDto clientId;
+    private ClientDto client;
 
     @NotNull(message = "Sent to processing center timestamp is required")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS")

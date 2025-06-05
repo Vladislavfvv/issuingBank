@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-default-userAccess
+      author: Vlad
+      changes:
+        - insert:
+            tableName: user_accesses
+            schemaName: issuingbankschema
+            columns:
+              - column:
+                  name: user_login
+                  value: admin
+              - column:
+                  name: user_password
+                  value: admin
+              - column:
+                  name: full_name
+                  value: Администратор
+              - column:
+                  name: user_role
+                  value: ADMIN
+        - insert:
+            tableName: user_accesses
+            schemaName: issuingbankschema
+            columns:
+              - column:
+                  name: user_login
+                  value: user
+              - column:
+                  name: user_password
+                  value: user
+              - column:
+                  name: full_name
+                  value: Пользователь
+              - column:
+                  name: user_role
+                  value: USER

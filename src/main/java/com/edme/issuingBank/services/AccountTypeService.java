@@ -99,30 +99,33 @@ public class AccountTypeService implements AbstractService<Long, AccountTypeDto>
 
     @Override
     @Transactional
-    public void dropTable() {
+    public boolean dropTable() {
         try {
             accountTypeRepository.dropTable();
             log.info("Dropped Account table");
+            return true;
 
         } catch (ResourceNotFoundException e) {
             log.error("Error while dropping Account table", e);
+            return false;
         }
     }
 
     @Override
     @Transactional
-    public void createTable() {
+    public boolean createTable() {
         try {
             accountTypeRepository.createTable();
             log.info("Created Account table");
         } catch (ResourceNotFoundException e) {
             log.error("Error while creating Account table", e);
         }
+        return false;
     }
 
     @Override
     @Transactional
-    public void initializeTable() {
+    public boolean initializeTable() {
         try {
             accountTypeRepository.insertDefaultValues();
             log.info("Inserted default values into table {}", accountTypeRepository.count());
@@ -130,5 +133,6 @@ public class AccountTypeService implements AbstractService<Long, AccountTypeDto>
             log.error("Error while inserting default values", e);
         }
 
+        return false;
     }
 }

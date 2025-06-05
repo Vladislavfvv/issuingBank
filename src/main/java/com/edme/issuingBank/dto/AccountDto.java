@@ -30,15 +30,15 @@ public class AccountDto {
 
     @NotNull(message = "Currency ID is required")
     @Schema(description = "Currency identifier", example = "1")
-    private CurrencyDto currencyId;
+    private CurrencyDto currency;
 
     @NotNull(message = "Account type ID is required")
     @Schema(description = "Account type identifier", example = "2")
-    private AccountTypeDto accountTypeId;
+    private AccountTypeDto accountType;
 
     @NotNull(message = "Client ID is required")
     @Schema(description = "Client identifier", example = "10")
-    private ClientDto clientId;
+    private ClientDto client;
 
     @PastOrPresent(message = "Account opening date cannot be in the future")
     @NotNull(message = "Account opening date is required")

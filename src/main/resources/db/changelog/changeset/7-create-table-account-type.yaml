@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-account-type
+      author: Vlad
+      changes:
+        - createTable:
+            tableName: account_type
+            schemaName: issuingbankschema
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: account_type_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true

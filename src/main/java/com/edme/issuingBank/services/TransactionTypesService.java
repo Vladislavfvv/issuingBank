@@ -95,34 +95,37 @@ public class TransactionTypesService implements AbstractService<Long, Transactio
 
     @Override
     @Transactional
-    public void dropTable() {
+    public boolean dropTable() {
         try {
             ttRepository.dropTable();
             log.info("Table transactionTypes {} dropped", ttRepository.findAll().size());
         } catch (ResourceNotFoundException e) {
             log.info("Table transactionTypes not found, cause {}", e.getMessage());
         }
+        return false;
     }
 
     @Override
     @Transactional
-    public void createTable() {
+    public boolean createTable() {
         try {
             ttRepository.createTable();
             log.info("Table transactionTypes created");
         } catch (ResourceNotFoundException e) {
             log.info("Table transactionTypes not created, cause {}", e.getMessage());
         }
+        return false;
     }
 
     @Override
     @Transactional
-    public void initializeTable() {
+    public boolean initializeTable() {
         try {
             ttRepository.insertDefaultValues();
             log.info("Table transactionTypes initialized");
         } catch (ResourceNotFoundException e) {
             log.info("Table transactionTypes not initialized, cause {}", e.getMessage());
         }
+        return false;
     }
 }

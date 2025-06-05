@@ -1,0 +1,180 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2-insert-default-bank-settings
+      author: Vlad
+      changes:
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: license }
+              - column: { name: current_value, value: Генеральная лицензия Банка России на осуществление банковских операций №____ от _______ г. }
+              - column: { name: description, value: Лицензия }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: full_name }
+              - column: { name: current_value, value: Публичное акционерное общество «Банк-эмитент номер один» }
+              - column: { name: description, value: Полное наименование банка }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: abbreviated_name }
+              - column: { name: current_value, value: ПАО Банк-эмитент №1 }
+              - column: { name: description, value: Сокращенное наименование банка }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: registration_address }
+              - column: { name: current_value, value: '________, _____, , ул., д.' }
+              - column: { name: description, value: Юридический адрес }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: postal_address }
+              - column: { name: current_value, value: '________, _____, , ул., д.' }
+              - column: { name: description, value: Почтовый адрес }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: correspondent_account }
+              - column: { name: current_value, value: 30101810____________ }
+              - column: { name: description, value: Корреспондентский счет }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: bic }
+              - column: { name: current_value, value: ________ }
+              - column: { name: description, value: Отделение Центрального банка }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: bin }
+              - column: { name: current_value, value: 041234569 }
+              - column: { name: description, value: Банковский идентификационный код (БИК) }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: code_1 }
+              - column: { name: current_value, value: 12345 }
+              - column: { name: description, value: Идентификационный номер эмитента (БИН карты) }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: code_2 }
+              - column: { name: current_value, value: 123456789 }
+              - column: { name: description, value: КПП }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: code_3 }
+              - column: { name: current_value, value: 7701234567 }
+              - column: { name: description, value: ИНН }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: code_4 }
+              - column: { name: current_value, value: 1234567890123 }
+              - column: { name: description, value: ОГРН }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: code_5 }
+              - column: { name: current_value, value: 12345678 }
+              - column: { name: description, value: ОКПО }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: code_6 }
+              - column: { name: current_value, value: 45382000000 }
+              - column: { name: description, value: ОКТМО }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: code_7 }
+              - column: { name: current_value, value: 64.20 }
+              - column: { name: description, value: ОКВЭД }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: code_8 }
+              - column: { name: current_value, value: 1234567 }
+              - column: { name: description, value: ОКОГУ }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: code_9 }
+              - column: { name: current_value, value: 13 }
+              - column: { name: description, value: ОКФС }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: code_10 }
+              - column: { name: current_value, value: 12247 }
+              - column: { name: description, value: ОКОПФ }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: swift }
+              - column: { name: current_value, value: SABRRUMM }
+              - column: { name: description, value: SWIFT-код }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: e_mail }
+              - column: { name: current_value, value: example@bank.com }
+              - column: { name: description, value: E-mail }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: www }
+              - column: { name: current_value, value: www.bank-example.com }
+              - column: { name: description, value: Сайт }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: bank_setting
+            columns:
+              - column: { name: setting, value: registration_date }
+              - column: { name: current_value, value: 2002-03-15 }
+              - column: { name: description, value: Дата внесения в ЕГРЮЛ }

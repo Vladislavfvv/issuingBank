@@ -98,34 +98,37 @@ public class PaymentSystemService implements AbstractService<Long, PaymentSystem
 
     @Override
     @Transactional
-    public void dropTable() {
+    public boolean dropTable() {
         try {
             paymentSystemRepository.dropTable();
             log.info("PaymentSystems table dropped");
         } catch (ResourceNotFoundException e) {
             log.info("Error dropping PaymentSystems table, cause: {}", e.getMessage());
         }
+        return false;
     }
 
     @Override
     @Transactional
-    public void createTable() {
+    public boolean createTable() {
         try {
             paymentSystemRepository.createTable();
             log.info("PaymentSystems table created");
         } catch (ResourceNotFoundException e) {
             log.info("Error creating PaymentSystems, cause: {}", e.getMessage());
         }
+        return false;
     }
 
     @Override
     @Transactional
-    public void initializeTable() {
+    public boolean initializeTable() {
         try {
             paymentSystemRepository.insertDefaultValues();
             log.info("PaymentSystems table initialized");
         } catch (ResourceNotFoundException e) {
             log.info("Error initializing PaymentSystems, cause: {}", e.getMessage());
         }
+        return false;
     }
 }

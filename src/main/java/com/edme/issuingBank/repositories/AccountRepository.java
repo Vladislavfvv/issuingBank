@@ -24,17 +24,17 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
                    "    id bigserial primary key," +
                    "    account_number varchar(20) UNIQUE not null," +
                    "    balance decimal," +
-                   "    currency bigint REFERENCES issuingbankschema.currency(id) ON DELETE CASCADE ON UPDATE CASCADE," +
-                   "    accountType bigint REFERENCES issuingbankschema.account_type(id)  ON DELETE CASCADE ON UPDATE CASCADE," +
-                   "    client bigint REFERENCES issuingbankschema.client(id) ON DELETE CASCADE ON UPDATE CASCADE," +
-                   "    accountOpeningDate date not null," +
-                   "    suspendingOperations boolean," +
-                   "    accountClosingDate date)", nativeQuery = true)
+                   "    currency_id bigint REFERENCES issuingbankschema.currency(id) ON DELETE CASCADE ON UPDATE CASCADE," +
+                   "    account_type_id bigint REFERENCES issuingbankschema.account_type(id)  ON DELETE CASCADE ON UPDATE CASCADE," +
+                   "    client_id bigint REFERENCES issuingbankschema.client(id) ON DELETE CASCADE ON UPDATE CASCADE," +
+                   "    account_opening_date date not null," +
+                   "    suspending_operations boolean," +
+                   "    account_closing_date date)", nativeQuery = true)
     void createTable();
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO issuingbankschema.account(account_number, balance, currency, accountType, client, accountOpeningDate, suspendingOperations, accountClosingDate)" +
+    @Query(value = "INSERT INTO issuingbankschema.account(account_number, balance, currency_id, account_type_id, client_id, account_opening_date, suspendingOperations, account_closing_date)" +
                    "VALUES ('40817810800000000001', '10.7', 1, 2, 1, '2022-10-21', false, 'null')," +
                    "       ('40817810800000000002', '48.07', 1, 2, 2, '2022-04-05', false, 'null')," +
                    "       ('40817810800000000003', '71.01', 1, 2, 3, '2022-10-20', false, 'null')," +

@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-default-account-type-values
+      author: Vlad
+      changes:
+        - insert:
+            tableName: account_type
+            schemaName: issuingbankschema
+            columns:
+              - column:
+                  name: account_type_name
+                  value: "Активный"
+        - insert:
+            tableName: account_type
+            schemaName: issuingbankschema
+            columns:
+              - column:
+                  name: account_type_name
+                  value: "Пассивный"

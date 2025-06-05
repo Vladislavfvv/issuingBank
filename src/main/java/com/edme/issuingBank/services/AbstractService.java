@@ -18,12 +18,12 @@ public interface AbstractService<T, E> {
     public boolean deleteAll();
 
     //public boolean dropTable();
-    public void dropTable();
+    public boolean dropTable();
 
 //    public boolean createTable();
-    public void createTable();
+    public boolean createTable();
 
     //public boolean initializeTable();
-    public void initializeTable();
+    public boolean initializeTable();
 }
 

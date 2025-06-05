@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-client-data
+      author: Vlad
+      changes:
+        - insert:
+            tableName: client
+            schemaName: issuingbankschema
+            columns:
+              - column: { name: last_name, value: "Иванов" }
+              - column: { name: first_name, value: "Иван" }
+              - column: { name: middle_name, value: "Иванович" }
+              - column: { name: birth_date, valueDate: "1980-01-30" }
+              - column: { name: document, value: "1234 123456 выдан 01.01.2000" }
+              - column: { name: address, value: "Москва, ул. Шаболовская, 37 кв. 20" }
+              - column: { name: phone, value: "+79221234567" }
+              - column: { name: email, value: "ivanivanov@list.ru" }
+
+        - insert:
+            tableName: client
+            schemaName: issuingbankschema
+            columns:
+              - column: { name: last_name, value: "Петров" }
+              - column: { name: first_name, value: "Семен" }
+              - column: { name: middle_name, value: "Егорович" }
+              - column: { name: birth_date, valueDate: "1989-12-31" }
+              - column: { name: document, value: "5678 789012 выдан 20.10.2012" }
+              - column: { name: address, value: "Санкт Петербург, Лиговский  пр-т, 96 кв. 15" }
+              - column: { name: phone, value: "+79121234568" }
+              - column: { name: email, value: "petrov@list.ru" }
+
+        - insert:
+            tableName: client
+            schemaName: issuingbankschema
+            columns:
+              - column: { name: last_name, value: "Сидоров" }
+              - column: { name: first_name, value: "Дмитрий" }
+              - column: { name: middle_name, value: "Степанович" }
+              - column: { name: birth_date, valueDate: "1976-10-20" }
+              - column: { name: document, value: "9012 345678 выдан 16.07.2018" }
+              - column: { name: address, value: "Сывтывкар, ул. Республики, 21 кв.12" }
+              - column: { name: phone, value: "+79041234569" }
+              - column: { name: email, value: "dmsydorov@mail.ru" }

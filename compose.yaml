@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   postgres:
     image: 'postgres:latest'
@@ -10,23 +12,9 @@ services:
     ports:
       - '5450:5432'
     volumes:
-      - ./sql/create_schemas.sql:/docker-entrypoint-initdb.d/01_create_schemas.sql
-      #- ./sql/init.sql:/docker-entrypoint-initdb.d/02_init.sql
-#      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
-#      - ./sql/create_schemas.sql:/docker-entrypoint-initdb.d/create_schemas.sql
-#      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-      #       - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-#      - ./src/main/resources/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
-#      - ./src/main/resources/sql/create_schemas.sql:/docker-entrypoint-initdb.d/create_schemas.sql
+      - ./sql/create-schemas.sql:/docker-entrypoint-initdb.d/01_create_schemas.sql
       - ./issuingbank-data:/var/lib/postgresql/data
-#      - ./initdb-issuingbank:/docker-entrypoint-initdb.d
-#    command: >
-#      bash -c "
-#      psql -U lesson -d issuingbank -c 'CREATE SCHEMA IF NOT EXISTS issuingbankschema;
-#      GRANT ALL PRIVILEGES ON SCHEMA issuingbankschema TO lesson;'
-#      && exec docker-entrypoint.sh postgres
-#      "
+
 
   redis:
     image: 'redis:latest'
@@ -34,10 +22,11 @@ services:
     container_name: redis_cache_ib
     ports:
       - '6479:6379'
+
   pgadmin:
     image: dpage/pgadmin4
     restart: always
-    container_name: pgadmin_issuingbank
+    container_name: pgadmin_ib
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
@@ -60,6 +49,8 @@ services:
           # это путь к апи сервиса
           # ИЛИ если API в этом же compose-файле — укажите имя сервиса:
           # SWAGGER_JSON: http://ваш_сервис_апи:порт/v3/api-docs
+          # чтобы Swagger не жаловался при отсутствии online-валидатора
+          VALIDATOR_URL: "null"
         depends_on:
           - postgres  # Зависит от Postgres (если API зависит от БД)
 volumes:

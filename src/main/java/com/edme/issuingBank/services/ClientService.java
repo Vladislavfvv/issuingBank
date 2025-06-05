@@ -103,34 +103,37 @@ public class ClientService implements AbstractService<Long, ClientDto> {
 
     @Override
     @Transactional
-    public void dropTable() {
+    public boolean dropTable() {
         try {
             clientRepository.dropTable();
             log.info("Client successfully dropped");
         } catch (ResourceNotFoundException e) {
             log.info("Clients Table could not be dropped, cause {}", e.getMessage());
         }
+        return false;
     }
 
     @Override
     @Transactional
-    public void createTable() {
+    public boolean createTable() {
         try {
             clientRepository.createTable();
             log.info("Client successfully created");
         } catch (ResourceNotFoundException e) {
             log.info("Clients Table could not be created, cause {}", e.getMessage());
         }
+        return false;
     }
 
     @Override
     @Transactional
-    public void initializeTable() {
+    public boolean initializeTable() {
         try {
             clientRepository.insertDefaultValues();
             log.info("Clients table successfully initialized");
         }catch (ResourceNotFoundException e) {
             log.info("Clients table could not be initialized, cause {}", e.getMessage());
         }
+        return false;
     }
 }

@@ -32,11 +32,13 @@ public class UserAccessController {
 
     @PostMapping
     public ResponseEntity<?> saveUserAccess(@RequestBody @Valid UserAccessDto userAccessDto) {
+        log.debug("Saving user access: {}", userAccessDto);
         return ResponseEntity.ok(userAccessService.save(userAccessDto));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<UserAccessDto> updateUserAccess(@PathVariable Long id, @RequestBody @Valid UserAccessDto userAccessDto) {
+        log.debug("Updating user access with id {}", id);
         return userAccessService.update(id, userAccessDto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.badRequest().build());
@@ -44,7 +46,7 @@ public class UserAccessController {
 
     @PostMapping("/createTableUserAccess")
     public ResponseEntity<String> createTableUserAccess() {
-        log.info("Creating table user access");
+        log.debug("Creating table user access");
         if (userAccessService.createTable()) {
             return ResponseEntity.ok("Successfully created table UserAccess");
         } else {
@@ -54,7 +56,7 @@ public class UserAccessController {
 
     @PostMapping("/fillTableUserAccess")
     public ResponseEntity<String> fillTableUserAccess() {
-        log.info("Filling table UserAccess");
+        log.debug("Filling table UserAccess");
 //        if(!userAccessService.createTable()){
 //            createTableUserAccess();
 //        }
@@ -67,6 +69,7 @@ public class UserAccessController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUserAccess(@PathVariable Long id) {
+        log.debug("Deleting user access");
         return userAccessService.delete(id)
                 ? ResponseEntity.noContent().build()
                 : ResponseEntity.badRequest().build();
@@ -74,7 +77,7 @@ public class UserAccessController {
 
     @DeleteMapping("/clearTableUserAccess")
     public ResponseEntity<String> clearTableUserAccess() {
-        log.info("Clearing table user access");
+        log.debug("Clearing table user access");
         if (userAccessService.deleteAll()){
             return ResponseEntity.ok("Successfully cleared table UserAccess");
         }else {

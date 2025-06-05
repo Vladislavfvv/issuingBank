@@ -36,4 +36,5 @@ build/
 # Игнорирует все файлы и папки внутри issuingbank-data
 /issuingbank-data/*   
 # Но НЕ игнорирует файл .gitkeep
-!/issuingbank-data/.gitkeep   
+!/issuingbank-data/.gitkeep
+

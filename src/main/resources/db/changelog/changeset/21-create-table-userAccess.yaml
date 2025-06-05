@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-userAccess
+      author: Vlad
+      preConditions:
+        - not:
+            - tableExists:
+                tableName: user_accesses
+                schemaName: issuingbankschema
+      changes:
+        - createTable:
+            tableName: user_accesses
+            schemaName: issuingbankschema
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_login
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: user_password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: full_name
+                  type: VARCHAR(255)
+              - column:
+                  name: user_role
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false

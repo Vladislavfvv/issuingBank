@@ -38,11 +38,11 @@ public class TransactionDto {
     private String transactionName;
 
     @NotNull(message = "transactionTypeId is required")
-    private TransactionTypeDto transactionTypeId;
+    private TransactionTypeDto transactionType;
 
     @NotNull(message = "accountId is required")
     @Schema(description = "Reference to the related account", example = "5")
-    private AccountDto accountId;
+    private AccountDto account;
 
     @NotNull(message = "sentToProcessingCenter is required")
     @Schema(description = "Timestamp when transaction was sent to the processing center", example = "2025-05-21T10:15:30")

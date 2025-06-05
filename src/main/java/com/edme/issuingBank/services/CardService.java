@@ -5,8 +5,6 @@ import com.edme.issuingBank.exceptions.ResourceNotFoundException;
 import com.edme.issuingBank.mappers.*;
 import com.edme.issuingBank.models.Card;
 import com.edme.issuingBank.repositories.CardRepository;
-import com.edme.issuingBank.repositories.CardStatusRepository;
-import com.edme.issuingBank.repositories.PaymentSystemRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -74,10 +72,10 @@ public class CardService implements AbstractService<Long, CardDto> {
 
         card.setCardNumber(dto.getCardNumber());
         card.setHolderName(dto.getHolderName());
-        card.setCardStatus(cardStatusMapper.toEntity(dto.getCardStatusId()));
-        card.setAccount(accountMapper.toEntity(dto.getAccountId()));
-        card.setPaymentSystem(paymentSystemMapper.toEntity(dto.getPaymentSystemId()));
-        card.setClientId(clientMapper.toEntity(dto.getClientId()));
+        card.setCardStatus(cardStatusMapper.toEntity(dto.getCardStatus()));
+        card.setAccount(accountMapper.toEntity(dto.getAccount()));
+        card.setPaymentSystem(paymentSystemMapper.toEntity(dto.getPaymentSystem()));
+        card.setClient(clientMapper.toEntity(dto.getClient()));
         card.setReceivedFromProcessingCenter(dto.getReceivedFromProcessingCenter());
         card.setSentToProcessingCenter(dto.getSentToProcessingCenter());
         Card saved = cardRepository.saveAndFlush(card);
@@ -111,32 +109,35 @@ public class CardService implements AbstractService<Long, CardDto> {
     }
 
     @Override
-    public void dropTable() {
+    public boolean dropTable() {
         try {
             cardRepository.dropTable();
             log.info("Table cards dropped.");
         } catch (ResourceNotFoundException e) {
             log.info("Table cards not dropped, cause {}", e.getMessage());
         }
+        return false;
     }
 
     @Override
-    public void createTable() {
+    public boolean createTable() {
         try {
             cardRepository.createTable();
             log.info("Table cards created.");
         } catch (ResourceNotFoundException e) {
             log.info("Table cards not created, cause {}", e.getMessage());
         }
+        return false;
     }
 
     @Override
-    public void initializeTable() {
+    public boolean initializeTable() {
         try {
             cardRepository.insertDefaultValues();
             log.info("Table cards initialized.");
         } catch (ResourceNotFoundException e) {
             log.info("Table cards not initialized, cause {}", e.getMessage());
         }
+        return false;
     }
 }

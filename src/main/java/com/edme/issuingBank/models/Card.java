@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Entity
-@Table(name = "cards", schema = "issuingbankschema")
+@Table(name = "card", schema = "issuingbankschema")
 public class Card {//Назначение: Хранит сведения о выпущенных картах.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +48,7 @@ public class Card {//Назначение: Хранит сведения о вы
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
     //@Column(name = "client_id", nullable = false)
-    private Client clientId;//Ссылка на клиента.
+    private Client client;//Ссылка на клиента.
 
     @Column(name = "sent_to_processing_center", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)

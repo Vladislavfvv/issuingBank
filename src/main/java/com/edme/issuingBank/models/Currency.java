@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "currencies", schema = "issuingbankschema")
+@Table(name = "currency", schema = "issuingbankschema")
 public class Currency {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

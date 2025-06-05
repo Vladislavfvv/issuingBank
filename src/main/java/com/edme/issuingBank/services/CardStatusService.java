@@ -97,34 +97,37 @@ public class CardStatusService implements AbstractService<Long, CardStatusDto> {
 
     @Override
     @Transactional
-    public void dropTable() {
+    public boolean dropTable() {
         try {
             cardStatusRepository.dropTable();
             log.info("Table cardStatuses dropped");
         } catch (ResourceNotFoundException e) {
             log.info("Table cardStatuses not dropped, cause {}", e.getMessage());
         }
+        return false;
     }
 
     @Override
     @Transactional
-    public void createTable() {
+    public boolean createTable() {
         try {
             cardStatusRepository.createTable();
             log.info("Table cardStatuses created");
         }catch (ResourceNotFoundException e) {
             log.info("Table cardStatuses not created, cause {}", e.getMessage());
         }
+        return false;
     }
 
     @Override
     @Transactional
-    public void initializeTable() {
+    public boolean initializeTable() {
         try{
             cardStatusRepository.createTable();
             log.info("Table cardStatuses initialized");
         }catch(ResourceNotFoundException e){
             log.info("Table cardStatuses not initialized, cause {}", e.getMessage());
         }
+        return false;
     }
 }

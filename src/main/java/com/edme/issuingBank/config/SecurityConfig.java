@@ -32,11 +32,11 @@ public class SecurityConfig {
                         .requestMatchers("/user/**").hasRole("USER")    //USER и ADMIN
                         .anyRequest().authenticated()                   //  Остальное требует авторизации
                 )
-                .formLogin(form -> form
-                        .loginPage("/login")                    // указать страницу логина явно
-                        .successHandler(successHandler)
-                        .permitAll()                            // разрешить всем доступ к форме логина
-                )
+//                .formLogin(form -> form
+//                        .loginPage("/login")                    // указать страницу логина явно
+//                        .successHandler(successHandler)
+//                        .permitAll()                            // разрешить всем доступ к форме логина
+//                )
                 .httpBasic(Customizer.withDefaults()) // <-- включаем basic auth
                 .logout(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable());

@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2-insert-default-payment-system
+      author: Vlad
+      changes:
+        - insert:
+            schemaName: issuingbankschema
+            tableName: payment_system
+            columns:
+              - column: { name: payment_system_name, value: VISA International Service Association }
+              - column: { name: first_digit_bin, value: 4 }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: payment_system
+            columns:
+              - column: { name: payment_system_name, value: Mastercard }
+              - column: { name: first_digit_bin, value: 5 }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: payment_system
+            columns:
+              - column: { name: payment_system_name, value: JCB }
+              - column: { name: first_digit_bin, value: 3 }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: payment_system
+            columns:
+              - column: { name: payment_system_name, value: American Express }
+              - column: { name: first_digit_bin, value: 3 }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: payment_system
+            columns:
+              - column: { name: payment_system_name, value: Diners Club International }
+              - column: { name: first_digit_bin, value: 3 }
+
+        - insert:
+            schemaName: issuingbankschema
+            tableName: payment_system
+            columns:
+              - column: { name: payment_system_name, value: China UnionPay }
+              - column: { name: first_digit_bin, value: 6 }

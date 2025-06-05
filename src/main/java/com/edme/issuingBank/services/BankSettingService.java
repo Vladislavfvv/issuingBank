@@ -100,34 +100,37 @@ public class BankSettingService implements AbstractService<Long, BankSettingDto>
 
     @Override
     @Transactional
-    public void dropTable() {
+    public boolean dropTable() {
         try {
             bankSettingRepository.dropTable();
             log.info("Bank settings dropped successfully");
         } catch (ResourceNotFoundException e) {
             log.info("BankSettings table could not be dropped, cause {}", e.getMessage());
         }
+        return false;
     }
 
     @Override
     @Transactional
-    public void createTable() {
+    public boolean createTable() {
         try {
             bankSettingRepository.createTable();
             log.info("Bank settings created successfully");
         } catch (ResourceNotFoundException e) {
             log.info("BankSettings  table could not be created, cause {}", e.getMessage());
         }
+        return false;
     }
 
     @Override
     @Transactional
-    public void initializeTable() {
+    public boolean initializeTable() {
         try {
             bankSettingRepository.insertDefaultValues();
             log.info("Bank settings initialized successfully");
         } catch (ResourceNotFoundException e) {
             log.info("BankSettings table could not be initialized, cause {}", e.getMessage());
         }
+        return false;
     }
 }

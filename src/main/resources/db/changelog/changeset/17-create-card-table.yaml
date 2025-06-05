@@ -1,0 +1,90 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-create-card-table
+      author: Vlad
+      changes:
+        - createTable:
+            tableName: card
+            schemaName: issuingbankschema
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: card_number
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: expiration_date
+                  type: date
+              - column:
+                  name: holder_name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: card_status_id
+                  type: bigint
+              - column:
+                  name: payment_system_id
+                  type: bigint
+              - column:
+                  name: account_id
+                  type: bigint
+              - column:
+                  name: client_id
+                  type: bigint
+              - column:
+                  name: sent_to_processing_center
+                  type: date
+              - column:
+                  name: received_from_processing_center
+                  type: date
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: issuingbankschema
+            baseTableName: card
+            baseColumnNames: card_status_id
+            constraintName: fk_card_cardstatus
+            referencedTableSchemaName: issuingbankschema
+            referencedTableName: card_status
+            referencedColumnNames: id
+            onDelete: CASCADE
+            onUpdate: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: issuingbankschema
+            baseTableName: card
+            baseColumnNames: payment_system_id
+            constraintName: fk_card_paymentsystem
+            referencedTableSchemaName: issuingbankschema
+            referencedTableName: payment_system
+            referencedColumnNames: id
+            onDelete: CASCADE
+            onUpdate: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: issuingbankschema
+            baseTableName: card
+            baseColumnNames: account_id
+            constraintName: fk_card_account
+            referencedTableSchemaName: issuingbankschema
+            referencedTableName: account
+            referencedColumnNames: id
+            onDelete: CASCADE
+            onUpdate: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableSchemaName: issuingbankschema
+            baseTableName: card
+            baseColumnNames: client_id
+            constraintName: fk_card_client
+            referencedTableSchemaName: issuingbankschema
+            referencedTableName: client
+            referencedColumnNames: id
+            onDelete: CASCADE
+            onUpdate: CASCADE

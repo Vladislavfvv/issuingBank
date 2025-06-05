@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "account_types", schema = "issuingbankschema")
+@Table(name = "account_type", schema = "issuingbankschema")
 public class AccountType {//Особенности проведения операций по Активным и Пассивным счетам
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

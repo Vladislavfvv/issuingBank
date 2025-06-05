@@ -95,32 +95,35 @@ public class TransactionService implements AbstractService<Long, TransactionDto>
     }
 
     @Override
-    public void dropTable() {
+    public boolean dropTable() {
         try {
             transactionRepository.dropTable();
             log.info("Transaction table dropped");
         } catch (EntityNotFoundException e) {
             log.info("Transaction not dropped, cause: {} ", e.getMessage());
         }
+        return false;
     }
 
     @Override
-    public void createTable() {
+    public boolean createTable() {
         try {
             transactionRepository.createTable();
             log.info("Transaction table created");
         } catch (ResourceNotFoundException e) {
             log.info("Transaction not created, cause: {} ", e.getMessage());
         }
+        return false;
     }
 
     @Override
-    public void initializeTable() {
+    public boolean initializeTable() {
         try {
             transactionRepository.insertDefaultValues();
             log.info("Transaction table initialized");
         } catch (ResourceNotFoundException e) {
             log.info("Transaction not inserted, cause: {} ", e.getMessage());
         }
+        return false;
     }
 }

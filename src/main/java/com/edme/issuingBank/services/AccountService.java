@@ -5,7 +5,10 @@ import com.edme.issuingBank.exceptions.ResourceNotFoundException;
 import com.edme.issuingBank.mappers.*;
 import com.edme.issuingBank.models.*;
 import com.edme.issuingBank.repositories.AccountRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +20,8 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
+@Transactional
 public class AccountService implements AbstractService<Long, AccountDto> {
 
     private final AccountRepository accountRepository;
@@ -28,19 +33,11 @@ public class AccountService implements AbstractService<Long, AccountDto> {
     private final ClientMapper clientMapper;
     private final CurrencyMapper currencyMapper;
 
-    public AccountService(AccountRepository accountRepository, AccountMapper accountMapper, ClientService clientService, CurrencyService currencyService, AccountTypeService accountTypeService, AccountTypeMapper accountTypeMapper, ClientMapper clientMapper, CurrencyMapper currencyMapper) {
-        this.accountRepository = accountRepository;
-        this.accountMapper = accountMapper;
-        this.clientService = clientService;
-        this.currencyService = currencyService;
-        this.accountTypeService = accountTypeService;
-        this.accountTypeMapper = accountTypeMapper;
-        this.clientMapper = clientMapper;
-        this.currencyMapper = currencyMapper;
-    }
 
-
+    // Кеширует список всех банков
+    @Cacheable(value = "allAccountsCache")
     @Override
+    @Transactional(readOnly = true)
     public List<AccountDto> findAll() {
         return accountRepository.findAll()
                 .stream()
@@ -48,14 +45,17 @@ public class AccountService implements AbstractService<Long, AccountDto> {
                 .collect(Collectors.toList());
     }
 
+    @Cacheable(value = "accountByIdCache", key = "#id")
     @Override
-    public Optional<AccountDto> findById(Long aLong) {
-        return accountRepository.findById(aLong)
+    @Transactional(readOnly = true)
+    public Optional<AccountDto> findById(Long id) {
+        return accountRepository.findById(id)
                 .map(accountMapper::toDto);
     }
 
     @Override
-    @Transactional
+    //удаление кэша при сохранении нового
+    @CacheEvict(value = {"allAccountsCache", "accountByIdCache"}, allEntries = true)
     public Optional<AccountDto> save(AccountDto dto) {
         Optional<Account> existing = accountRepository.findByAccountNumber(dto.getAccountNumber());
         if (existing.isPresent()) {
@@ -72,38 +72,33 @@ public class AccountService implements AbstractService<Long, AccountDto> {
     private void updateEntityFromDto(Account account, AccountDto dto) {
         account.setAccountNumber(dto.getAccountNumber());
         account.setBalance(dto.getBalance());
-        account.setAccountType(accountTypeService.findById(dto.getAccountTypeId().getId()).map(accountTypeMapper::toEntity).orElseThrow());
-        account.setClient(clientService.findById(dto.getClientId().getId()).map(clientMapper::toEntity).orElseThrow());
-        account.setCurrency(currencyService.findById(dto.getCurrencyId().getId()).map(currencyMapper::toEntity).orElseThrow());
+        account.setAccountType(accountTypeService.findById(dto.getAccountType().getId()).map(accountTypeMapper::toEntity).orElseThrow());
+        account.setClient(clientService.findById(dto.getClient().getId()).map(clientMapper::toEntity).orElseThrow());
+        account.setCurrency(currencyService.findById(dto.getCurrency().getId()).map(currencyMapper::toEntity).orElseThrow());
         account.setAccountOpeningDate(Date.valueOf(dto.getAccountOpeningDate()));
         account.setSuspendingOperations(dto.isSuspendingOperations());
         account.setAccountClosingDate(dto.getAccountClosingDate() != null ? Date.valueOf(dto.getAccountClosingDate()) : null);
     }
+
+    //удаление кэша при обновлении
+    @CacheEvict(value = {"allAccountsCache", "accountByIdCache"}, allEntries = true)
     @Override
-    @Transactional
     public Optional<AccountDto> update(Long id, AccountDto dto) {
         Optional<Account> existing = accountRepository.findById(id);
         if (existing.isPresent()) {
             Account account = existing.get();
             updateEntityFromDto(account, dto);
-//            account.setAccountNumber(dto.getAccountNumber());
-//            account.setBalance(dto.getBalance());
-//            account.setAccountType(accountTypeService.findById(dto.getAccountTypeId().getId()).map(accountTypeMapper::toEntity).orElseThrow());
-//            account.setClient(clientService.findById(dto.getClientId().getId()).map(clientMapper::toEntity).orElseThrow());
-//            account.setCurrency(currencyService.findById(dto.getCurrencyId().getId()).map(currencyMapper::toEntity).orElseThrow());
-//            account.setAccountOpeningDate(Date.valueOf(dto.getAccountOpeningDate()));
-//            account.setSuspendingOperations(dto.isSuspendingOperations());
-//            account.setAccountClosingDate(dto.getAccountClosingDate() != null ? Date.valueOf(dto.getAccountClosingDate()) : null);
             Account saved = accountRepository.saveAndFlush(account);
-            log.info("Updated account id: {}", saved.getId());
+            log.info("Updated account with id: {}", saved.getId());
             return Optional.ofNullable(accountMapper.toDto(saved));
         }
         log.info("Account not updates, cause it not exists");
         return Optional.empty();
     }
 
+    //удаление кэша при удалении
+    @CacheEvict(value = {"allAccountsCache", "accountByIdCache"}, allEntries = true)
     @Override
-    @Transactional
     public boolean delete(Long id) {
         Optional<Account> existing = accountRepository.findById(id);
         if (existing.isPresent()) {
@@ -115,49 +110,56 @@ public class AccountService implements AbstractService<Long, AccountDto> {
         return false;
     }
 
+    //удаление кэша при обновлении
+    @CacheEvict(value = {"allAccountsCache", "accountByIdCache"}, allEntries = true)
     @Override
-    @Transactional
     public boolean deleteAll() {
         try {
             accountRepository.deleteAll();
             log.info("All accounts deleted");
             return true;
         } catch (ResourceNotFoundException e) {
-            log.info("All accounts not deleted, cause: {}", e.getMessage());
+            log.error("All accounts not deleted, cause: {}", e.getMessage());
             return false;
         }
     }
 
+    //удаление кэша при обновлении
+    @CacheEvict(value = {"allAccountsCache", "accountByIdCache"}, allEntries = true)
     @Override
-    @Transactional
-    public void dropTable() {
+    public boolean dropTable() {
         try {
             accountRepository.dropTable();
             log.info("Table accounts dropped");
         } catch (ResourceNotFoundException e) {
-            log.info("Table accounts not dropped, cause: {}", e.getMessage());
+            log.warn("Table accounts not dropped, cause: {}", e.getMessage());
         }
+        return false;
     }
 
     @Override
-    @Transactional
-    public void createTable() {
+    public boolean createTable() {
         try {
             accountRepository.createTable();
             log.info("Table accounts created");
+            return true;
         } catch (ResourceNotFoundException e) {
-            log.info("Table accounts not created, cause: {}", e.getMessage());
+            log.warn("Table accounts not created, cause: {}", e.getMessage());
+            return false;
         }
     }
 
+    //удаление кэша при обновлении
+    @CacheEvict(value = {"allAccountsCache", "accountByIdCache"}, allEntries = true)
     @Override
-    @Transactional
-    public void initializeTable() {
+    public boolean initializeTable() {
         try {
             accountRepository.insertDefaultValues();
             log.info("Table accounts initialized");
+            return true;
         } catch (ResourceNotFoundException e) {
-            log.info("Table accounts not initialized, cause: {}", e.getMessage());
+            log.warn("Table accounts not initialized, cause: {}", e.getMessage());
+            return false;
         }
     }
 }

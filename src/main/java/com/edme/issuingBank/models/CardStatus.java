@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "card_statuses", schema = "issuingbankschema")
+@Table(name = "card_status", schema = "issuingbankschema")
 public class CardStatus {//Определяет текущее состояние карты.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

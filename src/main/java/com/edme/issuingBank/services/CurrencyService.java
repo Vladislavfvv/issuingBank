@@ -95,34 +95,37 @@ public class CurrencyService implements AbstractService<Long, CurrencyDto>{
 
     @Override
     @Transactional
-    public void dropTable() {
+    public boolean dropTable() {
         try {
             currencyRepository.deleteAll();
             log.info("Table currencies have been dropped");
         } catch (ResourceNotFoundException e) {
             log.info("Table currencies have not been dropped, cause {}", e.getMessage());
         }
+        return false;
     }
 
     @Override
     @Transactional
-    public void createTable() {
+    public boolean createTable() {
         try {
             currencyRepository.deleteAll();
             log.info("Table currencies have been created");
         } catch (ResourceNotFoundException e) {
             log.info("Table currencies have not been created, cause {}", e.getMessage());
         }
+        return false;
     }
 
     @Override
     @Transactional
-    public void initializeTable() {
+    public boolean initializeTable() {
         try{
             currencyRepository.deleteAll();
             log.info("Table currencies have been initialized");
         }catch (ResourceNotFoundException e){
             log.info("Table currencies have not been initialized, cause {}", e.getMessage());
         }
+        return false;
     }
 }

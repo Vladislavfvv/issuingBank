@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-create-payment-system-table
+      author: Vlad
+      changes:
+        - createTable:
+            tableName: payment_system
+            schemaName: issuingbankschema
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: payment_system_name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: first_digit_bin
+                  type: varchar(1)
+                  constraints:
+                    nullable: false

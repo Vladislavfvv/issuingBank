@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table(name="transaction_types", schema = "issuingbankschema")
+@Table(name="transaction_type", schema = "issuingbankschema")
 public class TransactionType {//Назначение: Определяет возможные виды банковских операций.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
