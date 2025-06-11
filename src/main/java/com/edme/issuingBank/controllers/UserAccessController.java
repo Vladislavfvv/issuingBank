@@ -3,6 +3,7 @@ package com.edme.issuingBank.controllers;
 import com.edme.issuingBank.dto.UserAccessDto;
 import com.edme.issuingBank.services.UserAccessService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,11 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/userAccess")
 public class UserAccessController {
 
-    @Autowired
-    private UserAccessService userAccessService;
+    private final UserAccessService userAccessService;
 
     @GetMapping
     public ResponseEntity<List<UserAccessDto>> getAllUserAccesses() {

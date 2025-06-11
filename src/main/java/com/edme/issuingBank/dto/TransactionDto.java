@@ -19,36 +19,35 @@ import java.sql.Timestamp;
 @Data
 public class TransactionDto {
 
-    @Schema(description = "Unique identifier of the transaction", example = "123")
+    //@Schema(description = "Unique identifier of the transaction", example = "123")
     private Long id;
 
-    @NotNull(message = "transactionDate is required")
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Schema(description = "Date when the transaction occurred", example = "21/05/2025")
+//    @NotNull(message = "transactionDate is required")
+//    @DateTimeFormat(pattern = "dd/MM/yyyy")
+//    @Schema(description = "Date when the transaction occurred", example = "21/05/2025")
     private Date transactionDate;
 
-    @NotNull(message = "sum is required")
-    @DecimalMin(value = "0.0", inclusive = false, message = "sum must be greater than 0") //inclusive-  стого больше 0,0
-
-    @Schema(description = "Amount of the transaction", example = "1500.75")
+//    @NotNull(message = "sum is required")
+//    @DecimalMin(value = "0.0", inclusive = false, message = "sum must be greater than 0") //inclusive-  стого больше 0,0
+//    @Schema(description = "Amount of the transaction", example = "1500.75")
     private BigDecimal sum;
 
-    @NotBlank(message = "transactionName is required")
-    @Schema(description = "Name or description of the transaction", example = "Transfer to savings account")
+//    @NotBlank(message = "transactionName is required")
+//    @Schema(description = "Name or description of the transaction", example = "Transfer to savings account")
     private String transactionName;
 
-    @NotNull(message = "transactionTypeId is required")
+//    @NotNull(message = "transactionTypeId is required")
     private TransactionTypeDto transactionType;
 
-    @NotNull(message = "accountId is required")
-    @Schema(description = "Reference to the related account", example = "5")
+//    @NotNull(message = "accountId is required")
+//    @Schema(description = "Reference to the related account", example = "5")
     private AccountDto account;
 
-    @NotNull(message = "sentToProcessingCenter is required")
-    @Schema(description = "Timestamp when transaction was sent to the processing center", example = "2025-05-21T10:15:30")
+//    @NotNull(message = "sentToProcessingCenter is required")
+//    @Schema(description = "Timestamp when transaction was sent to the processing center", example = "2025-05-21T10:15:30")
     private Timestamp sentToProcessingCenter;
 
-    @NotNull(message = "receivedFromProcessingCenter is required")
-    @Schema(description = "Timestamp when response was received from the processing center", example = "2025-05-21T10:16:30")
+//    @NotNull(message = "receivedFromProcessingCenter is required")
+//    @Schema(description = "Timestamp when response was received from the processing center", example = "2025-05-21T10:16:30")
     private Timestamp receivedFromProcessingCenter;
 }

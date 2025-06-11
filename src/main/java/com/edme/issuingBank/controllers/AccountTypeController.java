@@ -3,6 +3,7 @@ package com.edme.issuingBank.controllers;
 import com.edme.issuingBank.dto.AccountTypeDto;
 import com.edme.issuingBank.services.AccountTypeService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,11 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/accountTypes")
 public class AccountTypeController {
 
-    @Autowired
-    private AccountTypeService accountTypeService;
+    private final AccountTypeService accountTypeService;
 
     @GetMapping
     public ResponseEntity<List<AccountTypeDto>> getAllAccountTypes() {

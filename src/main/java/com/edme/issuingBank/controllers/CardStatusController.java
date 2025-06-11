@@ -3,6 +3,7 @@ package com.edme.issuingBank.controllers;
 import com.edme.issuingBank.dto.CardStatusDto;
 import com.edme.issuingBank.services.CardStatusService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,11 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/cardStatuses")
 public class CardStatusController {
 
-    @Autowired
-    private CardStatusService cardStatusService;
+    private final CardStatusService cardStatusService;
 
     @GetMapping
     public ResponseEntity<List<CardStatusDto>> getListCardStatuses() {

@@ -45,7 +45,8 @@ services:
         environment:
           # Указываем URL вашего OpenAPI-документа (JSON/YAML)
           # Если API запущено локально (не в Docker) — используйте host.docker.internal
-          SWAGGER_JSON: http://host.docker.internal:7050/v3/api-docs
+          #SWAGGER_JSON: http://host.docker.internal:7050/v3/api-docs
+          SWAGGER_JSON: http://host.docker.internal:8081/v3/api-docs
           # это путь к апи сервиса
           # ИЛИ если API в этом же compose-файле — укажите имя сервиса:
           # SWAGGER_JSON: http://ваш_сервис_апи:порт/v3/api-docs

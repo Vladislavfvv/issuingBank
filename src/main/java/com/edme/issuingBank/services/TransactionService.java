@@ -1,8 +1,10 @@
 package com.edme.issuingBank.services;
 
 import com.edme.issuingBank.dto.TransactionDto;
+import com.edme.issuingBank.dto.TransactionExchangeIbDto;
 import com.edme.issuingBank.exceptions.ResourceNotFoundException;
 import com.edme.issuingBank.mappers.AccountMapper;
+import com.edme.issuingBank.mappers.TransactionExchangeIbMapper;
 import com.edme.issuingBank.mappers.TransactionMapper;
 import com.edme.issuingBank.mappers.TransactionTypeMapper;
 import com.edme.issuingBank.models.Transaction;
@@ -27,6 +29,7 @@ public class TransactionService implements AbstractService<Long, TransactionDto>
     private final TransactionMapper transactionMapper;
     private final TransactionTypeMapper transactionTypeMapper;
     private final AccountMapper accountMapper;
+    private final TransactionExchangeIbMapper exchangeIbMapper;
 
 
     @Override
@@ -56,6 +59,16 @@ public class TransactionService implements AbstractService<Long, TransactionDto>
         Transaction saved = transactionRepository.saveAndFlush(transactionMapper.toEntity(dto));
         log.info("Saved transaction: {}", saved);
         return Optional.ofNullable(transactionMapper.toDto(saved));
+    }
+
+//    public void processTransaction(TransactionExchangeIbDto dto) {
+//        Transaction transaction = exchangeIbMapper.toEntity(dto);
+//        transactionRepository.save(transaction);
+//    }
+
+    public Transaction processTransaction(TransactionExchangeIbDto dto) {
+        Transaction transaction = exchangeIbMapper.toEntity(dto);
+        return transactionRepository.save(transaction);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.edme.issuingBank.dto.TransactionDto;
 import com.edme.issuingBank.services.PaymentSystemService;
 import com.edme.issuingBank.services.TransactionService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +14,12 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/transactions")
 public class TransactionController {
-    @Autowired
-    private TransactionService transactionService;
-    @Autowired
-    private PaymentSystemService paymentSystemService;
+
+    private final TransactionService transactionService;
+    private final PaymentSystemService paymentSystemService;
 
     @GetMapping
     public ResponseEntity<List<TransactionDto>> getAllTransactions() {
