@@ -67,7 +67,7 @@ public void receive(TransactionExchangeIbDto dto) {
 
     // Формируем ответ с обновлённым id
     TransactionExchangeIbDto response = new TransactionExchangeIbDto();
-    response.setId(savedTransaction.getId()); // Вот тут мы возвращаем настоящий id
+    response.setId(savedTransaction.getId()); //  тут  возвращаем настоящий id
     response.setTransactionDate(savedTransaction.getTransactionDate());
     response.setSum(savedTransaction.getSum());
     response.setTransactionName(savedTransaction.getTransactionName() + " Hello from IBank");
