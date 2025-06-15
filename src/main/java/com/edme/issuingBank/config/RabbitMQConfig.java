@@ -72,6 +72,7 @@ public class RabbitMQConfig {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
         factory.setMessageConverter(messageConverter);
+        //factory.setDefaultRequeueRejected(false);//DLQ, чтобы сообщение не зацикливалось:
         return factory;
     }
 } 

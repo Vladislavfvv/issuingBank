@@ -68,6 +68,7 @@ public class TransactionService implements AbstractService<Long, TransactionDto>
 
     public Transaction processTransaction(TransactionExchangeIbDto dto) {
         Transaction transaction = exchangeIbMapper.toEntity(dto);
+        transaction.setId(null); //  чтобы Hibernate не пытался сделать merge
         return transactionRepository.save(transaction);
     }
 

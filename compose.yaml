@@ -56,3 +56,9 @@ services:
           - postgres  # Зависит от Postgres (если API зависит от БД)
 volumes:
   pgadmin_data_ib: #в конце — обязательны для определения pgadmin_data
+
+
+networks:
+  default:
+    external:
+      name: microservices-net
