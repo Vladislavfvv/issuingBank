@@ -26,6 +26,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/actuator/**").permitAll()  // Доступ к Actuator
                         .requestMatchers("/register", "/login", "/css/**", "/js/**").permitAll()
                         .requestMatchers("/public/**").permitAll()      // Публичные маршруты
                         .requestMatchers("/admin/**").hasRole("ADMIN")  //Только для ADMIN
